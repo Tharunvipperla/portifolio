@@ -49,7 +49,17 @@ document.querySelectorAll('nav a').forEach(anchor => {
         // Update active class
         document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
         this.classList.add('active');
+
+        // Close mobile menu
+        document.querySelector('nav').classList.remove('active');
+        document.querySelector('.hamburger').classList.remove('active');
     });
+});
+
+// Hamburger menu toggle
+document.querySelector('.hamburger').addEventListener('click', () => {
+    document.querySelector('nav').classList.toggle('active');
+    document.querySelector('.hamburger').classList.toggle('active');
 });
 
 // Scroll to top on page load/reload
