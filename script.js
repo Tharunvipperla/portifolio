@@ -128,3 +128,62 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('section').forEach(section => {
     observer.observe(section);
 });
+
+let snowInterval;
+let hasSnowed = false;
+
+const logo = document.querySelector('.logo');
+
+// Helper function to check if we are in "Snow Season" (Nov 25 - Jan 31)
+function isSnowSeason() {
+    const now = new Date();
+    const month = now.getMonth(); // Jan is 0, Nov is 10, Dec is 11
+    const day = now.getDate();
+
+    // Check November (starting from the 25th)
+    const isLateNov = (month === 10 && day >= 25);
+    // Check December (all month)
+    const isDec = (month === 11);
+    // Check January (all month)
+    const isJan = (month === 0);
+
+    return isLateNov || isDec || isJan;
+}
+
+logo.addEventListener('mouseenter', () => {
+    // Only run if it's the right season AND it hasn't snowed yet
+    if (isSnowSeason() && !hasSnowed) {
+        snowInterval = setInterval(createSnowflake, 50);
+    }
+});
+
+logo.addEventListener('mouseleave', () => {
+    if (snowInterval) {
+        clearInterval(snowInterval);
+        hasSnowed = true; // Mark as done so it doesn't trigger again until refresh
+        console.log("Seasonal snowfall finished.");
+    }
+});
+
+function createSnowflake() {
+    const flake = document.createElement('div');
+    flake.classList.add('snowflake');
+    
+    const size = Math.random() * 5 + 2 + 'px';
+    const left = Math.random() * window.innerWidth + 'px';
+    const durationValue = Math.random() * 3 + 2; 
+    const initialOpacity = Math.random() * 0.7 + 0.3;
+
+    flake.style.width = size;
+    flake.style.height = size;
+    flake.style.left = left;
+    flake.style.opacity = initialOpacity;
+    flake.style.animationDuration = durationValue + 's';
+
+    document.body.appendChild(flake);
+
+    // Fade and remove
+    setTimeout(() => {
+        flake.remove();
+    }, durationValue * 1000);
+}

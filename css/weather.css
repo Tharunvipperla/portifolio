@@ -1,0 +1,24 @@
+.snowflake {
+    position: fixed; /* Falls relative to the screen */
+    top: -10px;
+    background-color: white;
+    border-radius: 50%;
+    pointer-events: none; /* User can click through the snow */
+    z-index: 9999;
+    filter: blur(1px); /* Soft look */
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(0);
+        opacity: inherit;
+    }
+    80% {
+        opacity: inherit; /* Maintain visibility for most of the fall */
+    }
+    100% {
+        transform: translateY(100vh);
+        opacity: 0; /* Smoothly fade to nothing at the bottom */
+    }
+}
