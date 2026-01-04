@@ -150,32 +150,46 @@ function isSnowSeason() {
     return isLateNov || isDec || isJan;
 }
 
-logo.addEventListener('mouseenter', () => {
-    // Only run if it's the right season AND it hasn't snowed yet
+function triggerSnowfall() {
     if (isSnowSeason() && !hasSnowed) {
         snowInterval = setInterval(createSnowflake, 50);
     }
-});
+}
 
-logo.addEventListener('mouseleave', () => {
+function stopSnowfall() {
     if (snowInterval) {
         clearInterval(snowInterval);
-        hasSnowed = true; // Mark as done so it doesn't trigger again until refresh
+        hasSnowed = true;
         console.log("Seasonal snowfall finished.");
     }
-});
+}
+
+// Check if device supports touch
+if ('ontouchstart' in window) {
+    // Mobile: click to start snowfall for 3 seconds
+    logo.addEventListener('click', () => {
+        triggerSnowfall();
+        setTimeout(stopSnowfall, 3000);
+    });
+} else {
+    // Desktop: hover to start, leave to stop
+    logo.addEventListener('mouseenter', triggerSnowfall);
+    logo.addEventListener('mouseleave', stopSnowfall);
+}
 
 function createSnowflake() {
     const flake = document.createElement('div');
     flake.classList.add('snowflake');
     
-    const size = Math.random() * 5 + 2 + 'px';
+    const isSmallScreen = window.innerWidth < 768;
+    const size = isSmallScreen ? Math.random() * 3 + 1 : Math.random() * 5 + 2;
+    const sizePx = size + 'px';
     const left = Math.random() * window.innerWidth + 'px';
     const durationValue = Math.random() * 3 + 2; 
     const initialOpacity = Math.random() * 0.7 + 0.3;
 
-    flake.style.width = size;
-    flake.style.height = size;
+    flake.style.width = sizePx;
+    flake.style.height = sizePx;
     flake.style.left = left;
     flake.style.opacity = initialOpacity;
     flake.style.animationDuration = durationValue + 's';
