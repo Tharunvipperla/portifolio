@@ -58,6 +58,10 @@ header {
     transition: 0.3s;
 }
 
+.hamburger:hover span {
+    background-color: var(--primary-color);
+}
+
 .logo {
     font-size: 3rem;
     font-weight: 800;
@@ -108,6 +112,25 @@ nav a.active {
         transform: translateX(-100%);
         transition: transform 0.3s ease;
         z-index: 999;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        font-size: 3rem;
+        color: white;
+        cursor: pointer;
+        display: none;
+        transition: 0.3s;
+    }
+
+    .close-btn:hover {
+        color: var(--primary-color);
+    }
+
+    nav.active .close-btn {
+        display: block;
     }
 
     nav.active {

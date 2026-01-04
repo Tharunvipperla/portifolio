@@ -62,6 +62,12 @@ document.querySelector('.hamburger').addEventListener('click', () => {
     document.querySelector('.hamburger').classList.toggle('active');
 });
 
+// Close menu on close button click
+document.querySelector('.close-btn').addEventListener('click', () => {
+    document.querySelector('nav').classList.remove('active');
+    document.querySelector('.hamburger').classList.remove('active');
+});
+
 // Scroll to top on page load/reload
 window.addEventListener('load', () => {
     window.scrollTo(0, 0);
