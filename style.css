@@ -77,13 +77,13 @@ header {
 @media (hover: hover) {
     .logo:hover {
         transform: scale(1.1);
-        color: #b74b4b;
+        color: var(--primary-color);
     }
 }
 
 .logo:active {
     transform: scale(1.1);
-    color: #b74b4b;
+    color: var(--primary-color);
 }
 
 nav a {
