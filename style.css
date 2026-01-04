@@ -87,7 +87,7 @@ nav a {
     font-weight: 500;
     transition: 0.3s ease;
     border-bottom: 3px solid transparent;
-
+    transition: color 0.4s ease, border-bottom 0.4s ease;
 }
 
 nav a:hover,
