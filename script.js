@@ -83,16 +83,24 @@ window.addEventListener('scroll', () => {
     const navLinks = document.querySelectorAll('nav a');
     
     let current = '';
+    
+    // We calculate based on the middle of the viewport
+    const scrollPosition = window.scrollY + (window.innerHeight / 3);
+
     sections.forEach(section => {
-        const sectionTop = section.offsetTop - 100; // Adjust for header height
-        if (window.scrollY >= sectionTop) {
-            current = section.getAttribute('id');
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        const sectionId = section.getAttribute('id');
+
+        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+            current = sectionId;
         }
     });
     
     navLinks.forEach(link => {
         link.classList.remove('active');
-        if (link.getAttribute('href').substring(1) === current) {
+        // Check if the link's href matches the current section ID
+        if (link.getAttribute('href') === `#${current}`) {
             link.classList.add('active');
         }
     });
@@ -100,7 +108,7 @@ window.addEventListener('scroll', () => {
 
 const observerOptions = {
     threshold: 0.05, // Trigger very early
-    rootMargin: "0px 0px -10% 0px" // Triggers when the section is 10% from the bottom
+    rootMargin: "-8% 0px 0px 0px" // Triggers when the section is 10% from the top
 };
 
 const observer = new IntersectionObserver((entries) => {
