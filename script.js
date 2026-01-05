@@ -129,52 +129,53 @@ document.querySelectorAll('section').forEach(section => {
     observer.observe(section);
 });
 
-let snowInterval;
-let hasSnowed = false;
+let seasonalInterval;
+let hasPlayedEffect = false;
 
 const logo = document.querySelector('.logo');
 
-// Helper function to check if we are in "Snow Season" (Nov 25 - Jan 31)
-function isSnowSeason() {
+function getCurrentSeason() {
     const now = new Date();
-    const month = now.getMonth(); // Jan is 0, Nov is 10, Dec is 11
-    const day = now.getDate();
+    const month = now.getMonth(); // Jan=0, March=2, May=4, Nov=10, Dec=11
 
-    // Check November (starting from the 25th)
-    const isLateNov = (month === 10 && day >= 25);
-    // Check December (all month)
-    const isDec = (month === 11);
-    // Check January (all month)
-    const isJan = (month === 0);
-
-    return isLateNov || isDec || isJan;
+    if (month >= 2 && month <= 4) return 'spring'; // March to May
+    if (month === 11 || month === 0 || (month === 10 && now.getDate() >= 25)) return 'winter'; // Nov 25 - Jan
+    return 'default';
 }
 
-function triggerSnowfall() {
-    if (isSnowSeason() && !hasSnowed) {
-        snowInterval = setInterval(createSnowflake, 50);
+function triggerEffect() {
+    if (hasPlayedEffect) return;
+    
+    const season = getCurrentSeason();
+    //season = "spring"; // For testing
+    
+    if (season === 'winter') {
+        seasonalInterval = setInterval(createSnowflake, 50);
+    } else if (season === 'spring') {
+        // Create a mix: Petals spawn faster, Flowers spawn slower
+        seasonalInterval = setInterval(() => {
+            createPetal();
+            if (Math.random() > 0.7) createFlower(); // 30% chance to spawn a full flower
+        }, 150); 
     }
 }
 
-function stopSnowfall() {
-    if (snowInterval) {
-        clearInterval(snowInterval);
-        hasSnowed = true;
-        console.log("Seasonal snowfall finished.");
+function stopEffect() {
+    if (seasonalInterval) {
+        clearInterval(seasonalInterval);
+        hasPlayedEffect = true; // One-time effect per reload
     }
 }
 
-// Check if device supports touch
+// Update Listeners
 if ('ontouchstart' in window) {
-    // Mobile: click to start snowfall for 3 seconds
     logo.addEventListener('click', () => {
-        triggerSnowfall();
-        setTimeout(stopSnowfall, 3000);
+        triggerEffect();
+        setTimeout(stopEffect, 3000);
     });
 } else {
-    // Desktop: hover to start, leave to stop
-    logo.addEventListener('mouseenter', triggerSnowfall);
-    logo.addEventListener('mouseleave', stopSnowfall);
+    logo.addEventListener('mouseenter', triggerEffect);
+    logo.addEventListener('mouseleave', stopEffect);
 }
 
 function createSnowflake() {
@@ -200,4 +201,40 @@ function createSnowflake() {
     setTimeout(() => {
         flake.remove();
     }, durationValue * 1000);
+}
+
+function createPetal() {
+    const petal = document.createElement('div');
+    petal.classList.add('petal');
+    
+    // Randomize for a non-rigid look
+    const size = Math.random() * 6 + 4; // Smaller size (4px to 10px)
+    const left = Math.random() * window.innerWidth + 'px';
+    const duration = Math.random() * 5 + 5 + 's'; // Slower fall
+    const opacity = Math.random() * 0.6 + 0.4;
+
+    petal.style.width = size + 'px';
+    petal.style.height = (size * 1.5) + 'px'; // Longer than wide
+    petal.style.left = left;
+    petal.style.opacity = opacity;
+    petal.style.animationDuration = duration + ', ' + (Math.random() * 2 + 2) + 's';
+
+    document.body.appendChild(petal);
+    setTimeout(() => { petal.remove(); }, parseFloat(duration) * 1000);
+}
+
+function createFlower() {
+    const flower = document.createElement('div');
+    flower.classList.add('sakura-flower');
+    flower.innerHTML = '🌸'; // Sakura Emoji
+    
+    const left = Math.random() * window.innerWidth + 'px';
+    const duration = Math.random() * 5 + 6 + 's';
+
+    flower.style.left = left;
+    flower.style.fontSize = Math.random() * 10 + 10 + 'px'; // Random flower size
+    flower.style.animationDuration = duration + ', ' + (Math.random() * 2 + 3) + 's';
+
+    document.body.appendChild(flower);
+    setTimeout(() => { flower.remove(); }, parseFloat(duration) * 1000);
 }

@@ -699,3 +699,39 @@ span {
         opacity: 0; /* Fade out completely at the bottom */
     }
 }
+
+/* Sakura Petal - Made smaller and softer */
+.petal {
+    position: fixed;
+    top: -20px;
+    background-color: #ffb7c5;
+    border-radius: 150% 0 150% 0;
+    pointer-events: none;
+    z-index: 9999;
+    filter: blur(0.3px);
+    /* Combined animations: one for falling, one for swaying */
+    animation: petal-fall linear forwards, sway 3s ease-in-out infinite alternate;
+}
+
+/* Full Sakura Flower */
+.sakura-flower {
+    position: fixed;
+    top: -30px;
+    font-size: 1.5rem; /* Adjust size as needed */
+    pointer-events: none;
+    z-index: 9999;
+    filter: drop-shadow(0 0 2px #ffb7c5);
+    animation: petal-fall linear forwards, sway 4s ease-in-out infinite alternate;
+}
+
+@keyframes petal-fall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+
+@keyframes sway {
+    0% { margin-left: 0px; }
+    100% { margin-left: 50px; }
+}
