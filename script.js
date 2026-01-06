@@ -136,10 +136,11 @@ const logo = document.querySelector('.logo');
 
 function getCurrentSeason() {
     const now = new Date();
-    const month = now.getMonth(); // Jan=0, March=2, May=4, Nov=10, Dec=11
+    const month = now.getMonth(); // Jan=0, Sept=8, Oct=9, Nov=10
 
     if (month >= 2 && month <= 4) return 'spring'; // March to May
-    if (month === 11 || month === 0 || (month === 10 && now.getDate() >= 25)) return 'winter'; // Nov 25 - Jan
+    if (month >= 8 && month <= 10) return 'autumn'; // Sept to Nov
+    if (month === 11 || month === 0 || (month === 10 && now.getDate() >= 25)) return 'winter';
     return 'default';
 }
 
@@ -147,16 +148,17 @@ function triggerEffect() {
     if (hasPlayedEffect) return;
     
     const season = getCurrentSeason();
-    //season = "spring"; // For testing
-    
+    // season = "autumn"; // Uncomment for testing
+
     if (season === 'winter') {
         seasonalInterval = setInterval(createSnowflake, 50);
     } else if (season === 'spring') {
-        // Create a mix: Petals spawn faster, Flowers spawn slower
         seasonalInterval = setInterval(() => {
             createPetal();
-            if (Math.random() > 0.7) createFlower(); // 30% chance to spawn a full flower
+            if (Math.random() > 0.7) createFlower();
         }, 150); 
+    } else if (season === 'autumn') {
+        seasonalInterval = setInterval(createLeaf, 150); // Leaves fall slightly slower
     }
 }
 
@@ -237,4 +239,28 @@ function createFlower() {
 
     document.body.appendChild(flower);
     setTimeout(() => { flower.remove(); }, parseFloat(duration) * 1000);
+}
+
+function createLeaf() {
+    const leaf = document.createElement('div');
+    leaf.classList.add('leaf');
+    
+    const colors = ['#d35400', '#e67e22', '#c0392b', '#f39c12'];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    
+    const size = Math.random() * 10 + 10 + 'px';
+    const left = Math.random() * window.innerWidth + 'px';
+    const duration = Math.random() * 4 + 5 + 's';
+
+    leaf.style.backgroundColor = randomColor;
+    leaf.style.width = size;
+    leaf.style.height = size;
+    leaf.style.left = left;
+    leaf.style.animationDuration = duration + ', ' + (Math.random() * 2 + 2) + 's';
+
+    document.body.appendChild(leaf);
+
+    setTimeout(() => {
+        leaf.remove();
+    }, parseFloat(duration) * 1000);
 }
