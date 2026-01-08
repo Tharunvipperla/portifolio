@@ -136,9 +136,10 @@ const logo = document.querySelector('.logo');
 
 function getCurrentSeason() {
     const now = new Date();
-    const month = now.getMonth(); // Jan=0, Sept=8, Oct=9, Nov=10
+    const month = now.getMonth(); // Jan=0, May=4, July=6
 
-    if (month >= 2 && month <= 4) return 'spring'; // March to May
+    if (month >= 4 && month <= 6) return 'summer'; // May to July
+    if (month >= 2 && month <= 3) return 'spring'; // March to April
     if (month >= 8 && month <= 10) return 'autumn'; // Sept to Nov
     if (month === 11 || month === 0 || (month === 10 && now.getDate() >= 25)) return 'winter';
     return 'default';
@@ -148,7 +149,7 @@ function triggerEffect() {
     if (hasPlayedEffect) return;
     
     const season = getCurrentSeason();
-    // season = "autumn"; // Uncomment for testing
+    // season = "autumn"; // Uncomment to test
 
     if (season === 'winter') {
         seasonalInterval = setInterval(createSnowflake, 50);
@@ -158,7 +159,9 @@ function triggerEffect() {
             if (Math.random() > 0.7) createFlower();
         }, 150); 
     } else if (season === 'autumn') {
-        seasonalInterval = setInterval(createLeaf, 150); // Leaves fall slightly slower
+        seasonalInterval = setInterval(createLeaf, 150);
+    } else if (season === 'summer') {
+        seasonalInterval = setInterval(createDryLeaf, 100);
     }
 }
 
@@ -263,4 +266,32 @@ function createLeaf() {
     setTimeout(() => {
         leaf.remove();
     }, parseFloat(duration) * 1000);
+}
+
+function createDryLeaf() {
+    const leaf = document.createElement('div');
+    leaf.classList.add('dry-leaf');
+    
+    // Variety of dry colors
+    const colors = ['#63412c', '#8b5a2b', '#a67b5b', '#4e3b31'];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    
+    const size = Math.random() * 8 + 10; // Numeric value for calculations
+    const left = Math.random() * window.innerWidth + 'px';
+    const durationValue = Math.random() * 3 + 4; // 4s to 7s
+
+    leaf.style.backgroundColor = randomColor;
+    leaf.style.width = size + 'px';
+    leaf.style.height = (size * 1.5) + 'px';
+    leaf.style.left = left;
+    
+    // Set the duration directly here to ensure it overrides defaults
+    leaf.style.animationDuration = durationValue + 's';
+
+    document.body.appendChild(leaf);
+
+    // Remove the element once it has finished falling
+    setTimeout(() => {
+        leaf.remove();
+    }, durationValue * 1000);
 }

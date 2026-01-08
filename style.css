@@ -761,3 +761,36 @@ span {
     0% { margin-left: -50px; }
     100% { margin-left: 50px; }
 }
+
+/* Dry/Withered Summer Leaf */
+.dry-leaf {
+    position: fixed;
+    /* Start above the visible screen */
+    top: -50px; 
+    background-color: #63412c;
+    width: 12px;
+    height: 18px;
+    border-radius: 80% 10% 80% 10%;
+    pointer-events: none;
+    z-index: 9999;
+    /* Ensure the animation is active and has a timing function */
+    animation: dry-fall 5s linear forwards;
+}
+
+@keyframes dry-fall {
+    0% { 
+        transform: translateY(0) rotate(0deg); 
+        opacity: 0; 
+    }
+    10% { 
+        opacity: 1; 
+    }
+    90% { 
+        opacity: 1; 
+    }
+    100% { 
+        /* This moves it down the whole screen */
+        transform: translateY(110vh) rotate(540deg); 
+        opacity: 0; 
+    }
+}
