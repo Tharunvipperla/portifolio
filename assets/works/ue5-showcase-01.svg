@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">UE5 environment composition placeholder</title>
+  <desc id="desc">Abstract cinematic placeholder artwork for a featured Unreal Engine render.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#120f10" />
+      <stop offset="50%" stop-color="#1c1718" />
+      <stop offset="100%" stop-color="#090909" />
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="35%" r="55%">
+      <stop offset="0%" stop-color="#da7664" stop-opacity="0.9" />
+      <stop offset="55%" stop-color="#b74b4b" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#b74b4b" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="frame" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5dfcf" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#b74b4b" stop-opacity="0.15" />
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#bg)" />
+  <circle cx="820" cy="330" r="330" fill="url(#glow)" />
+  <path d="M0 760 L360 600 L620 720 L910 470 L1220 620 L1600 420 L1600 1000 L0 1000 Z" fill="#0e0d0e" />
+  <path d="M0 800 L310 650 L640 770 L955 520 L1255 660 L1600 520 L1600 1000 L0 1000 Z" fill="#161314" />
+  <rect x="118" y="118" width="1364" height="764" rx="28" fill="none" stroke="url(#frame)" stroke-width="2" />
+  <rect x="150" y="150" width="1300" height="700" rx="20" fill="none" stroke="#ffffff" stroke-opacity="0.08" />
+  <path d="M1060 190 L1330 190 L1330 460" fill="none" stroke="#f5dfcf" stroke-opacity="0.45" stroke-width="3" />
+  <path d="M260 810 L260 710 L520 710" fill="none" stroke="#f5dfcf" stroke-opacity="0.28" stroke-width="3" />
+  <text x="150" y="212" fill="#f4e7da" font-size="46" font-family="Poppins, Arial, sans-serif" letter-spacing="9">UNREAL ENGINE 5</text>
+  <text x="150" y="300" fill="#ffffff" font-size="90" font-family="Poppins, Arial, sans-serif" font-weight="700">Environment Composition</text>
+  <text x="150" y="370" fill="#d8c3ba" font-size="34" font-family="Poppins, Arial, sans-serif">Featured render slot for your strongest scene export</text>
+  <text x="150" y="820" fill="#b78d83" font-size="28" font-family="Poppins, Arial, sans-serif" letter-spacing="6">HERO FRAME</text>
+</svg>

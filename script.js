@@ -129,6 +129,187 @@ document.querySelectorAll('section').forEach(section => {
     observer.observe(section);
 });
 
+const workShowcaseImage = document.getElementById('work-showcase-image');
+
+if (workShowcaseImage) {
+    const workShowcaseTitle = document.getElementById('work-showcase-title');
+    const workShowcaseDescription = document.getElementById('work-showcase-description');
+    const workCounter = document.getElementById('work-counter');
+    const workDots = document.getElementById('work-dots');
+    const previousWorkButton = document.querySelector('.prev-work');
+    const nextWorkButton = document.querySelector('.next-work');
+    const workShowcaseCard = document.querySelector('.work-showcase-card');
+    const reduceMotionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    const workSlides = [
+        {
+            src: 'assets/Images/Blood_Moon.png',
+            alt: 'Blood Moon Unreal Engine 5 environment showcase',
+            title: 'Blood Moon',
+            description: 'Atmospheric environment still focused on mood, contrast, and a strong night-scene read.'
+        },
+        {
+            src: 'assets/Images/Star_War_scene.png',
+            alt: 'Star War Scene Unreal Engine 5 environment showcase',
+            title: 'Star War Scene',
+            description: 'Cinematic sci-fi composition framed to present scale, lighting intensity, and world detail.'
+        },
+        {
+            src: 'assets/Images/Bamboo_House.png',
+            alt: 'Bamboo House Unreal Engine 5 environment showcase',
+            title: 'Bamboo House',
+            description: 'Architectural environment study balancing structure, foliage, and material presence.'
+        },
+        {
+            src: 'assets/Images/Matrix_Scene.png',
+            alt: 'Matrix Scene Unreal Engine 5 environment showcase',
+            title: 'Matrix Scene',
+            description: 'Stylized environment render with a cleaner sci-fi tone and controlled visual rhythm.'
+        },
+        {
+            src: 'assets/Images/door_tree.png',
+            alt: 'Door Tree Unreal Engine 5 environment showcase',
+            title: 'Door Tree',
+            description: 'A surreal focal-point composition designed to emphasize silhouette, depth, and atmosphere.'
+        },
+        {
+            src: 'assets/Images/Trees.png',
+            alt: 'Trees Unreal Engine 5 environment showcase',
+            title: 'Trees',
+            description: 'Wide environment capture built around foliage density, terrain depth, and natural composition.'
+        }
+    ];
+
+    let activeWorkIndex = 0;
+    let workAutoplayInterval;
+    const preloadedWorkImages = new Set();
+
+    function formatWorkIndex(index) {
+        return String(index + 1).padStart(2, '0');
+    }
+
+    function preloadWorkImage(index) {
+        const slide = workSlides[index];
+
+        if (!slide || preloadedWorkImages.has(slide.src)) {
+            return;
+        }
+
+        const image = new Image();
+        image.src = slide.src;
+        preloadedWorkImages.add(slide.src);
+    }
+
+    function updateWorkDots() {
+        workDots.querySelectorAll('.work-dot').forEach((dot, index) => {
+            const isActive = index === activeWorkIndex;
+            dot.classList.toggle('is-active', isActive);
+            dot.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        });
+    }
+
+    function swapWorkImage(slide) {
+        workShowcaseImage.src = slide.src;
+        workShowcaseImage.alt = slide.alt;
+        requestAnimationFrame(() => {
+            workShowcaseImage.classList.remove('is-transitioning');
+        });
+
+        preloadWorkImage((activeWorkIndex + 1) % workSlides.length);
+        preloadWorkImage((activeWorkIndex + 2) % workSlides.length);
+    }
+
+    function renderWorkSlide(index, immediate = false) {
+        activeWorkIndex = (index + workSlides.length) % workSlides.length;
+
+        const slide = workSlides[activeWorkIndex];
+        workShowcaseTitle.textContent = slide.title;
+        workShowcaseDescription.textContent = slide.description;
+        workCounter.textContent = `${formatWorkIndex(activeWorkIndex)} / ${String(workSlides.length).padStart(2, '0')}`;
+        updateWorkDots();
+
+        if (immediate || workShowcaseImage.getAttribute('src') === slide.src) {
+            swapWorkImage(slide);
+            return;
+        }
+
+        workShowcaseImage.classList.add('is-transitioning');
+
+        const nextImage = new Image();
+        nextImage.src = slide.src;
+
+        if (nextImage.complete) {
+            swapWorkImage(slide);
+            return;
+        }
+
+        nextImage.onload = () => swapWorkImage(slide);
+        nextImage.onerror = () => swapWorkImage(slide);
+    }
+
+    function stopWorkAutoplay() {
+        if (workAutoplayInterval) {
+            clearInterval(workAutoplayInterval);
+            workAutoplayInterval = undefined;
+        }
+    }
+
+    function startWorkAutoplay() {
+        stopWorkAutoplay();
+
+        if (reduceMotionPreference.matches) {
+            return;
+        }
+
+        workAutoplayInterval = window.setInterval(() => {
+            renderWorkSlide(activeWorkIndex + 1);
+        }, 5000);
+    }
+
+    function restartWorkAutoplay() {
+        startWorkAutoplay();
+    }
+
+    workSlides.forEach((slide, index) => {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'work-dot';
+        dot.setAttribute('aria-label', `Show ${slide.title}`);
+        dot.addEventListener('click', () => {
+            renderWorkSlide(index);
+            restartWorkAutoplay();
+        });
+        workDots.appendChild(dot);
+    });
+
+    previousWorkButton.addEventListener('click', () => {
+        renderWorkSlide(activeWorkIndex - 1);
+        restartWorkAutoplay();
+    });
+
+    nextWorkButton.addEventListener('click', () => {
+        renderWorkSlide(activeWorkIndex + 1);
+        restartWorkAutoplay();
+    });
+
+    workShowcaseCard.addEventListener('mouseenter', stopWorkAutoplay);
+    workShowcaseCard.addEventListener('mouseleave', startWorkAutoplay);
+    workShowcaseCard.addEventListener('focusin', stopWorkAutoplay);
+    workShowcaseCard.addEventListener('focusout', startWorkAutoplay);
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            stopWorkAutoplay();
+            return;
+        }
+
+        startWorkAutoplay();
+    });
+
+    renderWorkSlide(0, true);
+    startWorkAutoplay();
+}
+
 let seasonalInterval;
 let hasPlayedEffect = false;
 

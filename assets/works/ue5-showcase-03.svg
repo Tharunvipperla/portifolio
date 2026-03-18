@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">UE5 lighting study placeholder</title>
+  <desc id="desc">Abstract placeholder artwork for an atmospheric Unreal Engine lighting render.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#100d11" />
+      <stop offset="55%" stop-color="#160f14" />
+      <stop offset="100%" stop-color="#09090b" />
+    </linearGradient>
+    <radialGradient id="light" cx="32%" cy="24%" r="52%">
+      <stop offset="0%" stop-color="#f0b27a" stop-opacity="0.95" />
+      <stop offset="55%" stop-color="#b74b4b" stop-opacity="0.22" />
+      <stop offset="100%" stop-color="#b74b4b" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="frame" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f3ddcb" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#b74b4b" stop-opacity="0.2" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#bg)" />
+  <circle cx="350" cy="210" r="240" fill="url(#light)" />
+  <path d="M0 700 Q160 610 280 660 T540 650 T850 630 T1200 560 L1200 900 L0 900 Z" fill="#121014" />
+  <path d="M0 765 Q180 675 340 725 T660 715 T960 690 T1200 635 L1200 900 L0 900 Z" fill="#0d0c10" />
+  <rect x="84" y="84" width="1032" height="732" rx="26" fill="none" stroke="url(#frame)" stroke-width="2" />
+  <path d="M890 145 L1030 145 L1030 285" fill="none" stroke="#f4e3d3" stroke-opacity="0.34" stroke-width="3" />
+  <path d="M160 770 L300 770 L300 630" fill="none" stroke="#f4e3d3" stroke-opacity="0.2" stroke-width="3" />
+  <text x="120" y="172" fill="#f3e2d2" font-size="34" font-family="Poppins, Arial, sans-serif" letter-spacing="6">UE5 SHOWCASE</text>
+  <text x="120" y="257" fill="#ffffff" font-size="72" font-family="Poppins, Arial, sans-serif" font-weight="700">Lighting Exploration</text>
+  <text x="120" y="322" fill="#d8c5b8" font-size="28" font-family="Poppins, Arial, sans-serif">Atmosphere, contrast, reflections, and final mood study</text>
+  <text x="120" y="760" fill="#d5a27b" font-size="24" font-family="Poppins, Arial, sans-serif" letter-spacing="5">PRESENTATION SLOT</text>
+</svg>

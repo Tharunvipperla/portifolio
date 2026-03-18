@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">UE5 gameplay space placeholder</title>
+  <desc id="desc">Abstract placeholder artwork for a gameplay-focused Unreal Engine screenshot.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1012" />
+      <stop offset="45%" stop-color="#13181b" />
+      <stop offset="100%" stop-color="#090909" />
+    </linearGradient>
+    <radialGradient id="accent" cx="72%" cy="25%" r="45%">
+      <stop offset="0%" stop-color="#d19b5e" stop-opacity="0.8" />
+      <stop offset="60%" stop-color="#d19b5e" stop-opacity="0.16" />
+      <stop offset="100%" stop-color="#d19b5e" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="line" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f0d0aa" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#b74b4b" stop-opacity="0.15" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#bg)" />
+  <circle cx="860" cy="210" r="220" fill="url(#accent)" />
+  <path d="M0 640 L290 560 L470 660 L670 470 L890 600 L1200 470 L1200 900 L0 900 Z" fill="#121518" />
+  <path d="M70 540 H470 V760 H70 Z" fill="#0b0d0f" fill-opacity="0.75" stroke="#ffffff" stroke-opacity="0.08" />
+  <path d="M540 470 H1120 V760 H540 Z" fill="#111416" fill-opacity="0.7" stroke="#ffffff" stroke-opacity="0.08" />
+  <path d="M115 585 H425" stroke="url(#line)" stroke-width="4" />
+  <path d="M585 525 H1075" stroke="url(#line)" stroke-width="4" />
+  <rect x="78" y="78" width="1044" height="744" rx="24" fill="none" stroke="#ffffff" stroke-opacity="0.08" />
+  <text x="120" y="170" fill="#f1e0cf" font-size="34" font-family="Poppins, Arial, sans-serif" letter-spacing="6">UE5 SHOWCASE</text>
+  <text x="120" y="255" fill="#ffffff" font-size="72" font-family="Poppins, Arial, sans-serif" font-weight="700">Gameplay Space</text>
+  <text x="120" y="320" fill="#d7c9bb" font-size="28" font-family="Poppins, Arial, sans-serif">Traversal, combat, interaction, or readability shot</text>
+  <text x="120" y="760" fill="#b5916d" font-size="24" font-family="Poppins, Arial, sans-serif" letter-spacing="5">SECONDARY SLOT</text>
+</svg>
